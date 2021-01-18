@@ -28,6 +28,8 @@ resource "aws_instance" "instance" {
 
     user_data = <<-EOF
             #! /bin/bash
+            sudo hostnamectl set-hostname apache2
+            sudo sh -c 'echo root:Passw0rd | chpasswd'
             sudo apt update
             sudo apt-get -y upgrade
             sudo apt-get -y install apache2
@@ -35,6 +37,9 @@ resource "aws_instance" "instance" {
             sudo a2ensite default-ssl.conf
             sudo systemctl restart apache2
             sudo systemctl enable apache2
+            sed -i 's|80|8080|g' ports.conf
+            sed -i 's|443|8443|g' ports.conf
+            sudo systemctl restart apache2
             EOF
 
     instance_type                = "t2.micro"
