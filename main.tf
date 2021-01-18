@@ -37,8 +37,8 @@ resource "aws_instance" "instance" {
             sudo a2ensite default-ssl.conf
             sudo systemctl restart apache2
             sudo systemctl enable apache2
-            sed -i 's|80|8080|g' ports.conf
-            sed -i 's|443|8443|g' ports.conf
+            sudo sed -i 's|80|8080|g' ports.conf
+            sudo sed -i 's|443|8443|g' ports.conf
             sudo systemctl restart apache2
             EOF
 
