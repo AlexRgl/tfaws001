@@ -37,9 +37,10 @@ resource "aws_instance" "instance" {
             sudo a2ensite default-ssl.conf
             sudo systemctl restart apache2
             sudo systemctl enable apache2
-            sudo sed -i 's|80|8080|g' ports.conf
-            sudo sed -i 's|443|8443|g' ports.conf
+            sudo sed -i 's|80|8080|g' /etc/apache2/ports.conf
+            sudo sed -i 's|443|8443|g' /etc/apache2/ports.conf
             sudo systemctl restart apache2
+            sudo sed -i 's|443|8443|g' /etc/apache2/sites-available/default-ssl.conf
             EOF
 
     instance_type                = "t2.micro"
